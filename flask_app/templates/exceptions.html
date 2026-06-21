@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+{% block title %}Exception Registry — GRC{% endblock %}
+{% block page_title %}Exception Registry{% endblock %}
+
+{% block content %}
+
+<!-- ── Filter Bar ─────────────────────────────────────────────── -->
+<div class="card mb-4">
+    <div class="card-body" style="padding:16px 20px;">
+        <form method="GET" action="/exceptions" class="row g-2 align-items-end">
+
+            <div class="col-md-3">
+                <label class="form-label" style="font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;">Search</label>
+                <input type="text" name="search" class="form-control form-control-sm"
+                       placeholder="ID, requester, justification…"
+                       value="{{ search }}">
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label" style="font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;">Status</label>
+                <select name="status" class="form-select form-select-sm">
+                    <option value="">All Statuses</option>
+                    <option value="ACTIVE"   {% if status_filter=='ACTIVE'   %}selected{% endif %}>Active</option>
+                    <option value="PENDING"  {% if status_filter=='PENDING'  %}selected{% endif %}>Pending</option>
+                    <option value="REVOKED"  {% if status_filter=='REVOKED'  %}selected{% endif %}>Revoked</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label" style="font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;">Risk Level</label>
+                <select name="risk_level" class="form-select form-select-sm">
+                    <option value="">All Risk Levels</option>
+                    {% for r in risk_levels %}
+                    <option value="{{ r }}" {% if risk_filter==r %}selected{% endif %}>{{ r }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label" style="font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;">Exception Type</label>
+                <select name="type" class="form-select form-select-sm">
+                    <option value="">All Types</option>
+                    {% for t in exc_types %}
+                    <option value="{{ t }}" {% if type_filter==t %}selected{% endif %}>{{ t }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-2 d-flex gap-2">
+                <button type="submit" class="btn btn-primary btn-sm w-100">
+                    <i class="fas fa-filter me-1"></i>Filter
+                </button>
+                <a href="/exceptions" class="btn btn-outline-secondary btn-sm w-100">Reset</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ── Results Summary ────────────────────────────────────────── -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div style="font-size:13px;color:#64748b;">
+        Showing <strong style="color:#0f172a;">{{ exceptions|length }}</strong> records
+        {% if search %} matching "<strong>{{ search }}</strong>"{% endif %}
+    </div>
+    <div class="d-flex gap-2 align-items-center" style="font-size:12px;color:#64748b;">
+        <span style="width:10px;height:10px;background:#d1fae5;border-radius:2px;display:inline-block;"></span> Active
+        <span style="width:10px;height:10px;background:#fef3c7;border-radius:2px;display:inline-block;margin-left:8px;"></span> Expiring Soon
+        <span style="width:10px;height:10px;background:#fee2e2;border-radius:2px;display:inline-block;margin-left:8px;"></span> Expired
+        <span style="width:10px;height:10px;background:#f1f5f9;border-radius:2px;display:inline-block;margin-left:8px;"></span> Revoked
+    </div>
+</div>
+
+<!-- ── Table ──────────────────────────────────────────────────── -->
+<div class="card">
+    <div class="card-body p-0">
+        <div style="overflow-x:auto;">
+        <table class="table data-table mb-0">
+            <thead>
+                <tr>
+                    <!-- Actions column FIRST -->
+                    <th style="white-space:nowrap;min-width:140px;">Actions</th>
+
+                    {% set cols = [
+                        ('exception_id','ID'),
+                        ('type','Type'),
+                        ('requester','Requester'),
+                        ('business_unit','Business Unit'),
+                        ('start_date','Start'),
+                        ('end_date','End'),
+                        ('status','Status'),
+                        ('risk_level','Risk Level'),
+                        ('risk_score','Score'),
+                        ('predicted_type','Anomaly'),
+                        ('renewal_count','Renewals')
+                    ] %}
+                    {% for col_key, col_label in cols %}
+                    <th>
+                        {% set new_dir = 'asc' if (sort_by==col_key and sort_dir=='desc') else 'desc' %}
+                        <a href="/exceptions?sort={{ col_key }}&dir={{ new_dir }}&status={{ status_filter }}&risk_level={{ risk_filter }}&type={{ type_filter }}&search={{ search }}"
+                           style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:4px;">
+                            {{ col_label }}
+                            {% if sort_by == col_key %}
+                                <i class="fas fa-sort-{{ 'down' if sort_dir=='desc' else 'up' }}" style="color:#3b82f6;font-size:10px;"></i>
+                            {% else %}
+                                <i class="fas fa-sort" style="color:#cbd5e1;font-size:10px;"></i>
+                            {% endif %}
+                        </a>
+                    </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for exc in exceptions %}
+                <tr class="row-{{ exc.display_status }}" id="row-{{ exc.exception_id }}">
+
+                    <!-- Actions cell FIRST -->
+                    <td style="white-space:nowrap;">
+                        {% if exc.status == 'REVOKED' %}
+                            <span style="font-size:11px;color:#94a3b8;font-style:italic;">Closed</span>
+                        {% else %}
+                            <button type="button" class="btn btn-sm"
+                                    style="font-size:11px;padding:2px 8px;background:#fee2e2;color:#dc2626;border:1px solid #fca5a5;border-radius:4px;"
+                                    onclick="if(confirm('Revoke {{ exc.exception_id }}? This cannot be undone.')){
+                                        fetch('/revoke/{{ exc.exception_id }}',{method:'POST'})
+                                        .then(r=>{ if(r.ok){ location.reload(); } else { alert('Error revoking.'); } });
+                                    }">
+                                <i class="fas fa-ban me-1"></i>Revoke
+                            </button>
+                            <button type="button" class="btn btn-sm"
+                                    style="font-size:11px;padding:2px 8px;background:#d1fae5;color:#065f46;border:1px solid #6ee7b7;border-radius:4px;margin-left:4px;"
+                                    onclick="if(confirm('Renew {{ exc.exception_id }} for 90 more days?')){
+                                        fetch('/renew/{{ exc.exception_id }}',{method:'POST'})
+                                        .then(r=>{
+                                            if(r.ok){
+                                                alert('✅ Renewed successfully! End date extended by 90 days.');
+                                                location.reload();
+                                            } else {
+                                                alert('Error renewing.');
+                                            }
+                                        });
+                                    }">
+                                <i class="fas fa-rotate me-1"></i>Renew
+                            </button>
+                        {% endif %}
+                    </td>
+
+                    <!-- Clickable ID → detail page -->
+                    <td>
+                        <a href="/exception/{{ exc.exception_id }}"
+                           style="font-size:11px;color:#3b82f6;text-decoration:none;font-family:monospace;"
+                           title="View full details">
+                            {{ exc.exception_id }}
+                            <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;"></i>
+                        </a>
+                    </td>
+
+                    <td style="font-size:12px;max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="{{ exc.type }}">
+                        {{ exc.type }}
+                    </td>
+                    <td style="font-size:12px;">{{ exc.requester }}</td>
+                    <td style="font-size:12px;">{{ exc.business_unit or '—' }}</td>
+                    <td style="font-size:12px;white-space:nowrap;">{{ exc.start_date }}</td>
+                    <td style="font-size:12px;white-space:nowrap;">
+                        {{ exc.end_date }}
+                        {% if exc.display_status == 'expiring' %}
+                            <span style="font-size:10px;color:#d97706;display:block;">{{ exc.days_to_expiry }}d left</span>
+                        {% elif exc.display_status == 'expired' %}
+                            <span style="font-size:10px;color:#dc2626;display:block;">{{ exc.days_to_expiry | abs }}d ago</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <span class="badge-{{ exc.display_status }}">
+                            {{ exc.display_status | upper }}
+                        </span>
+                    </td>
+                    <td class="risk-{{ exc.risk_level | lower }}">{{ exc.risk_level }}</td>
+                    <td>
+                        {% set s = exc.risk_score %}
+                        {% if s >= 85 %}
+                            <span class="score-pill score-critical">{{ s }}</span>
+                        {% elif s >= 65 %}
+                            <span class="score-pill score-high">{{ s }}</span>
+                        {% elif s >= 45 %}
+                            <span class="score-pill score-medium">{{ s }}</span>
+                        {% else %}
+                            <span class="score-pill score-low">{{ s }}</span>
+                        {% endif %}
+                    </td>
+                    <td style="font-size:11px;">
+                        {% if exc.predicted_type and exc.predicted_type != 'NONE' %}
+                            <span style="color:#dc2626;font-weight:600;">
+                                <i class="fas fa-triangle-exclamation me-1"></i>{{ exc.predicted_type | replace('_',' ') }}
+                            </span>
+                        {% else %}
+                            <span style="color:#10b981;">
+                                <i class="fas fa-circle-check me-1"></i>Clean
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td style="font-size:12px;text-align:center;">
+                        {% if exc.renewal_count and exc.renewal_count > 0 %}
+                            <span style="background:#dbeafe;color:#1e40af;padding:2px 8px;border-radius:20px;font-weight:600;font-size:11px;">
+                                {{ exc.renewal_count }}x
+                            </span>
+                        {% else %}
+                            <span style="color:#94a3b8;font-size:11px;">—</span>
+                        {% endif %}
+                    </td>
+
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="12" class="text-center" style="padding:40px;color:#94a3b8;">
+                        <i class="fas fa-inbox" style="font-size:32px;display:block;margin-bottom:12px;"></i>
+                        No exceptions found matching your filters.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

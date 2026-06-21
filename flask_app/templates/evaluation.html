@@ -1,0 +1,354 @@
+{% extends "base.html" %}
+{% block title %}Model Evaluation — GRC{% endblock %}
+{% block page_title %}Anomaly Detection — Model Evaluation{% endblock %}
+
+{% block content %}
+
+{% if error %}
+<div class="flash-error"><i class="fas fa-circle-xmark me-2"></i>{{ error }}</div>
+{% else %}
+
+<!-- ── Top Metrics Bar ────────────────────────────────────────── -->
+<div class="row g-3 mb-4">
+
+    <div class="col-md-3">
+        <div class="kpi-card" style="border-left:4px solid #3b82f6;">
+            <div class="kpi-icon" style="background:#dbeafe;">
+                <i class="fas fa-bullseye" style="color:#3b82f6;"></i>
+            </div>
+            <div>
+                <div class="kpi-value" style="color:#3b82f6;">{{ accuracy }}%</div>
+                <div class="kpi-label">Overall Accuracy</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="kpi-card" style="border-left:4px solid #10b981;">
+            <div class="kpi-icon" style="background:#d1fae5;">
+                <i class="fas fa-circle-check" style="color:#10b981;"></i>
+            </div>
+            <div>
+                <div class="kpi-value" style="color:#10b981;">
+                    {{ (report['At-Risk Exception']['f1-score'] * 100) | round(1) }}%
+                </div>
+                <div class="kpi-label">Anomaly F1 Score</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="kpi-card" style="border-left:4px solid #f59e0b;">
+            <div class="kpi-icon" style="background:#fef3c7;">
+                <i class="fas fa-magnet" style="color:#f59e0b;"></i>
+            </div>
+            <div>
+                <div class="kpi-value" style="color:#f59e0b;">
+                    {{ (report['At-Risk Exception']['recall'] * 100) | round(1) }}%
+                </div>
+                <div class="kpi-label">Recall (Catch Rate)</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="kpi-card" style="border-left:4px solid #dc2626;">
+            <div class="kpi-icon" style="background:#fee2e2;">
+                <i class="fas fa-radiation" style="color:#dc2626;"></i>
+            </div>
+            <div>
+                <div class="kpi-value" style="color:#dc2626;">{{ critical_rate }}%</div>
+                <div class="kpi-label">Critical Anomaly Catch Rate</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ── Binary Classification Report ─────────────────────────── -->
+<div class="row g-3 mb-4">
+    <div class="col-md-7">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="fas fa-table me-2" style="color:#3b82f6;"></i>Binary Classification Report (Anomaly vs Clean)
+            </div>
+            <div class="card-body" style="padding:24px;">
+                <table class="table data-table">
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>Precision</th>
+                            <th>Recall</th>
+                            <th>F1 Score</th>
+                            <th>Support</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for label in ['Compliant', 'At-Risk Exception'] %}
+                        {% set row = report[label] %}
+                        <tr>
+                            <td style="font-weight:600;font-size:13px;">
+                                {% if label == 'At-Risk Exception' %}
+                                    <span style="color:#dc2626;"><i class="fas fa-triangle-exclamation me-1"></i>{{ label }}</span>
+                                {% else %}
+                                    <span style="color:#10b981;"><i class="fas fa-circle-check me-1"></i>{{ label }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% set p = (row['precision'] * 100) | round(1) %}
+                                <span style="font-weight:700;color:{% if p >= 90 %}#10b981{% elif p >= 70 %}#f59e0b{% else %}#dc2626{% endif %};">{{ p }}%</span>
+                            </td>
+                            <td>
+                                {% set r = (row['recall'] * 100) | round(1) %}
+                                <span style="font-weight:700;color:{% if r >= 90 %}#10b981{% elif r >= 70 %}#f59e0b{% else %}#dc2626{% endif %};">{{ r }}%</span>
+                            </td>
+                            <td>
+                                {% set f = (row['f1-score'] * 100) | round(1) %}
+                                <span style="font-weight:700;color:{% if f >= 90 %}#10b981{% elif f >= 70 %}#f59e0b{% else %}#dc2626{% endif %};">{{ f }}%</span>
+                            </td>
+                            <td style="color:#64748b;">{{ row['support'] | int }}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr style="background:#f8fafc;border-top:2px solid #e2e8f0;">
+                            <td style="font-weight:700;font-size:12px;color:#64748b;">MACRO AVG</td>
+                            <td style="font-weight:700;">{{ (report['macro avg']['precision'] * 100) | round(1) }}%</td>
+                            <td style="font-weight:700;">{{ (report['macro avg']['recall'] * 100) | round(1) }}%</td>
+                            <td style="font-weight:700;">{{ (report['macro avg']['f1-score'] * 100) | round(1) }}%</td>
+                            <td style="color:#64748b;">{{ report['macro avg']['support'] | int }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- ── Confusion Matrix Visual ── -->
+                <div style="margin-top:24px;">
+                    <div style="font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:16px;">
+                        <i class="fas fa-grid-2 me-1"></i>Confusion Matrix
+                    </div>
+
+                    <!-- Axis labels -->
+                    <div style="display:flex;align-items:flex-start;gap:12px;">
+                        <!-- Y-axis label -->
+                        <div style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;padding:8px 0;text-align:center;">
+                            Actual
+                        </div>
+
+                        <div style="flex:1;">
+                            <!-- X-axis label -->
+                            <div style="text-align:center;font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">
+                                Predicted
+                            </div>
+
+                            <!-- Column headers -->
+                            <div style="display:grid;grid-template-columns:100px 1fr 1fr;gap:6px;margin-bottom:6px;">
+                                <div></div>
+                                <div style="text-align:center;font-size:11px;font-weight:600;color:#10b981;background:#d1fae5;padding:6px;border-radius:6px;">Clean</div>
+                                <div style="text-align:center;font-size:11px;font-weight:600;color:#dc2626;background:#fee2e2;padding:6px;border-radius:6px;">Anomaly</div>
+                            </div>
+
+                            <!-- Row: Actual Clean -->
+                            <div style="display:grid;grid-template-columns:100px 1fr 1fr;gap:6px;margin-bottom:6px;">
+                                <div style="display:flex;align-items:center;justify-content:flex-end;padding-right:10px;font-size:11px;font-weight:600;color:#10b981;">Clean</div>
+                                <div style="background:#d1fae5;border-radius:8px;padding:20px 12px;text-align:center;border:2px solid #6ee7b7;position:relative;">
+                                    <div style="font-size:28px;font-weight:900;color:#065f46;">{{ cm[0][0] }}</div>
+                                    <div style="font-size:10px;font-weight:700;color:#059669;margin-top:2px;">TRUE NEGATIVE</div>
+                                    <div style="font-size:9px;color:#6ee7b7;margin-top:1px;">Correctly ignored</div>
+                                    <div style="position:absolute;top:6px;right:8px;font-size:16px;">✅</div>
+                                </div>
+                                <div style="background:#fff5f5;border-radius:8px;padding:20px 12px;text-align:center;border:2px solid #fca5a5;position:relative;">
+                                    <div style="font-size:28px;font-weight:900;color:#991b1b;">{{ cm[0][1] }}</div>
+                                    <div style="font-size:10px;font-weight:700;color:#dc2626;margin-top:2px;">FALSE POSITIVE</div>
+                                    <div style="font-size:9px;color:#fca5a5;margin-top:1px;">Wrongly flagged</div>
+                                    <div style="position:absolute;top:6px;right:8px;font-size:16px;">⚠️</div>
+                                </div>
+                            </div>
+
+                            <!-- Row: Actual Anomaly -->
+                            <div style="display:grid;grid-template-columns:100px 1fr 1fr;gap:6px;">
+                                <div style="display:flex;align-items:center;justify-content:flex-end;padding-right:10px;font-size:11px;font-weight:600;color:#dc2626;">Anomaly</div>
+                                <div style="background:#fef9c3;border-radius:8px;padding:20px 12px;text-align:center;border:2px solid #fde047;position:relative;">
+                                    <div style="font-size:28px;font-weight:900;color:#92400e;">{{ cm[1][0] }}</div>
+                                    <div style="font-size:10px;font-weight:700;color:#b45309;margin-top:2px;">FALSE NEGATIVE</div>
+                                    <div style="font-size:9px;color:#fbbf24;margin-top:1px;">Anomaly missed!</div>
+                                    <div style="position:absolute;top:6px;right:8px;font-size:16px;">❌</div>
+                                </div>
+                                <div style="background:#d1fae5;border-radius:8px;padding:20px 12px;text-align:center;border:2px solid #6ee7b7;position:relative;">
+                                    <div style="font-size:28px;font-weight:900;color:#065f46;">{{ cm[1][1] }}</div>
+                                    <div style="font-size:10px;font-weight:700;color:#059669;margin-top:2px;">TRUE POSITIVE</div>
+                                    <div style="font-size:9px;color:#6ee7b7;margin-top:1px;">Correctly caught</div>
+                                    <div style="position:absolute;top:6px;right:8px;font-size:16px;">✅</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bar chart breakdown -->
+                    <div style="margin-top:20px;">
+                        <canvas id="cmBarChart" style="max-height:120px;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Critical Catch Rate -->
+    <div class="col-md-5">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="fas fa-chart-pie me-2" style="color:#3b82f6;"></i>Detection Performance
+            </div>
+            <div class="card-body" style="padding:24px;">
+
+                <div style="text-align:center;margin-bottom:24px;">
+                    <canvas id="gaugeChart" style="max-height:180px;"></canvas>
+                    <div style="font-size:13px;color:#64748b;margin-top:8px;">
+                        Critical anomalies caught: <strong style="color:#dc2626;">{{ critical_caught }} / {{ critical_total }}</strong>
+                    </div>
+                </div>
+
+                <div style="background:#fff5f5;border-radius:8px;padding:14px 16px;font-size:12px;color:#374151;border-left:4px solid #dc2626;">
+                    <div style="font-weight:700;color:#dc2626;margin-bottom:6px;">Critical Anomaly Types</div>
+                    <div style="line-height:1.8;">
+                        <div><i class="fas fa-dot-circle me-2" style="color:#dc2626;font-size:8px;"></i>EXPIRED_ACTIVE_EXCEPTION</div>
+                        <div><i class="fas fa-dot-circle me-2" style="color:#dc2626;font-size:8px;"></i>CRITICAL_RISK_EXCEPTION</div>
+                    </div>
+                </div>
+
+                <div style="text-align:center;margin-top:20px;padding:16px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;">
+                    <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#64748b;margin-bottom:6px;">
+                        Engine Performance Grade
+                    </div>
+                    <div style="font-size:36px;font-weight:900;color:{% if accuracy >= 95 %}#10b981{% elif accuracy >= 85 %}#f59e0b{% else %}#dc2626{% endif %};">
+                        {% if accuracy >= 95 %}A{% elif accuracy >= 85 %}B{% elif accuracy >= 75 %}C{% else %}D{% endif %}
+                    </div>
+                    <div style="font-size:12px;color:#64748b;">{{ accuracy }}% overall accuracy</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ── Per-Type Detection Report ──────────────────────────────── -->
+<div class="card">
+    <div class="card-header">
+        <i class="fas fa-list-check me-2" style="color:#3b82f6;"></i>Per Anomaly Type Detection Results
+    </div>
+    <div class="card-body" style="padding:24px;">
+        <table class="table data-table">
+            <thead>
+                <tr>
+                    <th>Anomaly Type</th>
+                    <th>Precision</th>
+                    <th>Recall</th>
+                    <th>F1 Score</th>
+                    <th>Support</th>
+                    <th>Performance</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set type_order = [
+                    'EXPIRED_ACTIVE_EXCEPTION',
+                    'CRITICAL_RISK_EXCEPTION',
+                    'HIGH_RISK_LONG_EXCEPTION',
+                    'LONG_RUNNING_EXCEPTION',
+                    'STALLED_REVIEW',
+                    'NONE'
+                ] %}
+                {% for t in type_order %}
+                {% if t in type_report %}
+                {% set row = type_report[t] %}
+                {% set f1 = (row['f1-score'] * 100) | round(1) %}
+                <tr>
+                    <td style="font-weight:600;font-size:12px;">
+                        {% if t == 'NONE' %}
+                            <span style="color:#10b981;">✓ Clean (NONE)</span>
+                        {% elif t in ['EXPIRED_ACTIVE_EXCEPTION','CRITICAL_RISK_EXCEPTION'] %}
+                            <span style="color:#dc2626;"><i class="fas fa-skull-crossbones me-1" style="font-size:10px;"></i>{{ t }}</span>
+                        {% else %}
+                            <span style="color:#ea580c;">{{ t }}</span>
+                        {% endif %}
+                    </td>
+                    <td style="font-weight:700;color:{% if (row['precision']*100)|round(0)|int >= 90 %}#10b981{% elif (row['precision']*100)|round(0)|int >= 70 %}#f59e0b{% else %}#dc2626{% endif %};">
+                        {{ (row['precision'] * 100) | round(1) }}%
+                    </td>
+                    <td style="font-weight:700;color:{% if (row['recall']*100)|round(0)|int >= 90 %}#10b981{% elif (row['recall']*100)|round(0)|int >= 70 %}#f59e0b{% else %}#dc2626{% endif %};">
+                        {{ (row['recall'] * 100) | round(1) }}%
+                    </td>
+                    <td style="font-weight:700;color:{% if f1 >= 90 %}#10b981{% elif f1 >= 70 %}#f59e0b{% else %}#dc2626{% endif %};">
+                        {{ f1 }}%
+                    </td>
+                    <td style="color:#64748b;">{{ row['support'] | int }}</td>
+                    <td>
+                        <div style="background:#e2e8f0;border-radius:4px;height:8px;width:120px;overflow:hidden;">
+                            <div style="width:{{ f1 }}%;height:100%;border-radius:4px;background:{% if f1 >= 90 %}#10b981{% elif f1 >= 70 %}#f59e0b{% else %}#dc2626{% endif %};"></div>
+                        </div>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div style="margin-top:16px;padding:14px 16px;background:#f8fafc;border-radius:8px;font-size:12px;color:#64748b;border:1px solid #e2e8f0;">
+            <strong style="color:#0f172a;">Methodology:</strong>
+            Anomaly detection uses a rules-based engine with 5 priority-ordered rules.
+            Predictions are evaluated against <code>exception_labels.csv</code> ground truth using
+            sklearn's <code>classification_report</code>.
+            The engine prioritises zero false negatives on critical anomaly types
+            (EXPIRED_ACTIVE and CRITICAL_RISK) — ensuring no dangerous exceptions go undetected.
+        </div>
+    </div>
+</div>
+
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Gauge doughnut — critical catch rate
+new Chart(document.getElementById('gaugeChart'), {
+    type: 'doughnut',
+    data: {
+        labels: ['Caught', 'Missed'],
+        datasets: [{
+            data: [{{ critical_caught }}, {{ critical_total - critical_caught }}],
+            backgroundColor: ['#10b981', '#fee2e2'],
+            borderWidth: 2,
+            borderColor: '#fff'
+        }]
+    },
+    options: {
+        responsive: true,
+        circumference: 180,
+        rotation: -90,
+        cutout: '70%',
+        plugins: {
+            legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10 } },
+            tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw} exceptions` } }
+        }
+    }
+});
+
+// Bar chart — confusion matrix breakdown
+new Chart(document.getElementById('cmBarChart'), {
+    type: 'bar',
+    data: {
+        labels: ['True Negative\n(Clean ✓)', 'False Positive\n(Clean flagged)', 'False Negative\n(Anomaly missed)', 'True Positive\n(Anomaly caught ✓)'],
+        datasets: [{
+            label: 'Count',
+            data: [{{ cm[0][0] }}, {{ cm[0][1] }}, {{ cm[1][0] }}, {{ cm[1][1] }}],
+            backgroundColor: ['#10b981', '#f87171', '#fbbf24', '#10b981'],
+            borderRadius: 6,
+            borderSkipped: false
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+            y: { beginAtZero: true, ticks: { stepSize: 50 }, grid: { color: '#f1f5f9' } },
+            x: { ticks: { font: { size: 10 } }, grid: { display: false } }
+        }
+    }
+});
+</script>
+{% endblock %}

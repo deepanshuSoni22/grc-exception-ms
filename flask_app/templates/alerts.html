@@ -1,0 +1,318 @@
+{% extends "base.html" %}
+{% block title %}Alerts — GRC{% endblock %}
+{% block page_title %}Alert Monitor{% endblock %}
+
+{% block content %}
+
+<!-- ── Alert Summary Bar ──────────────────────────────────────── -->
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="kpi-card" style="border-left:4px solid #dc2626;">
+            <div class="kpi-icon" style="background:#fee2e2;">
+                <i class="fas fa-skull-crossbones" style="color:#dc2626;"></i>
+            </div>
+            <div>
+                <div class="kpi-value" style="color:#dc2626;">{{ expired_active|length }}</div>
+                <div class="kpi-label">Expired — Not Revoked</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="kpi-card" style="border-left:4px solid #f59e0b;">
+            <div class="kpi-icon" style="background:#fef3c7;">
+                <i class="fas fa-clock" style="color:#f59e0b;"></i>
+            </div>
+            <div>
+                <div class="kpi-value" style="color:#f59e0b;">{{ expiring_soon|length }}</div>
+                <div class="kpi-label">Expiring Within 30 Days</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="kpi-card" style="border-left:4px solid #ea580c;">
+            <div class="kpi-icon" style="background:#ffedd5;">
+                <i class="fas fa-hourglass-end" style="color:#ea580c;"></i>
+            </div>
+            <div>
+                <div class="kpi-value" style="color:#ea580c;">{{ long_running|length }}</div>
+                <div class="kpi-label">Long-Running (&gt;180 Days)</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="kpi-card" style="border-left:4px solid #3b82f6;">
+            <div class="kpi-icon" style="background:#dbeafe;">
+                <i class="fas fa-pause-circle" style="color:#3b82f6;"></i>
+            </div>
+            <div>
+                <div class="kpi-value" style="color:#3b82f6;">{{ stalled|length }}</div>
+                <div class="kpi-label">Stalled Reviews (&gt;30 Days)</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ── SECTION 1: Expired but Active (most critical) ─────────── -->
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center"
+         style="background:#fff5f5;border-left:4px solid #dc2626;">
+        <span style="color:#dc2626;">
+            <i class="fas fa-skull-crossbones me-2"></i>
+            CRITICAL — Expired But Not Revoked
+            <span style="background:#dc2626;color:#fff;font-size:11px;padding:2px 8px;border-radius:20px;margin-left:8px;">{{ expired_active|length }}</span>
+        </span>
+        <span style="font-size:11px;color:#dc2626;font-weight:600;">⚠ IMMEDIATE ACTION REQUIRED</span>
+    </div>
+    <div class="card-body p-0">
+        {% if expired_active %}
+        <table class="table data-table mb-0">
+            <thead>
+                <tr>
+                    <th>Exception ID</th>
+                    <th>Type</th>
+                    <th>Requester</th>
+                    <th>End Date</th>
+                    <th>Alert</th>
+                    <th>Risk Score</th>
+                    <th>Recommendation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for exc in expired_active %}
+                <tr class="row-expired">
+                    <td><code style="font-size:11px;color:#dc2626;">{{ exc.exception_id }}</code></td>
+                    <td style="font-size:12px;">{{ exc.type }}</td>
+                    <td style="font-size:12px;">{{ exc.requester }}</td>
+                    <td style="font-size:12px;color:#dc2626;font-weight:600;">{{ exc.end_date }}</td>
+                    <td style="font-size:12px;">
+                        <span style="color:#dc2626;"><i class="fas fa-triangle-exclamation me-1"></i>{{ exc.alert_msg }}</span>
+                    </td>
+                    <td>
+                        {% set s = exc.risk_score %}
+                        {% if s >= 85 %}<span class="score-pill score-critical">{{ s }}</span>
+                        {% elif s >= 65 %}<span class="score-pill score-high">{{ s }}</span>
+                        {% else %}<span class="score-pill score-medium">{{ s }}</span>{% endif %}
+                    </td>
+                    <td style="font-size:11px;color:#dc2626;font-weight:700;">REVOKE IMMEDIATELY</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div style="padding:32px;text-align:center;color:#10b981;">
+            <i class="fas fa-circle-check" style="font-size:28px;display:block;margin-bottom:8px;"></i>
+            No expired-active exceptions — all clear!
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ── SECTION 2: Expiring Soon ──────────────────────────────── -->
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center"
+         style="background:#fffbeb;border-left:4px solid #f59e0b;">
+        <span style="color:#92400e;">
+            <i class="fas fa-clock me-2"></i>
+            WARNING — Expiring Within 30 Days
+            <span style="background:#f59e0b;color:#fff;font-size:11px;padding:2px 8px;border-radius:20px;margin-left:8px;">{{ expiring_soon|length }}</span>
+        </span>
+        <span style="font-size:11px;color:#92400e;font-weight:600;">Schedule renewal or revocation</span>
+    </div>
+    <div class="card-body p-0">
+        {% if expiring_soon %}
+        <table class="table data-table mb-0">
+            <thead>
+                <tr>
+                    <th>Exception ID</th>
+                    <th>Type</th>
+                    <th>Requester</th>
+                    <th>End Date</th>
+                    <th>Alert</th>
+                    <th>Risk Score</th>
+                    <th>Recommendation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for exc in expiring_soon %}
+                <tr class="row-expiring">
+                    <td><code style="font-size:11px;color:#d97706;">{{ exc.exception_id }}</code></td>
+                    <td style="font-size:12px;">{{ exc.type }}</td>
+                    <td style="font-size:12px;">{{ exc.requester }}</td>
+                    <td style="font-size:12px;color:#d97706;font-weight:600;">{{ exc.end_date }}</td>
+                    <td style="font-size:12px;color:#92400e;">
+                        <i class="fas fa-clock me-1"></i>{{ exc.alert_msg }}
+                    </td>
+                    <td>
+                        {% set s = exc.risk_score %}
+                        {% if s >= 85 %}<span class="score-pill score-critical">{{ s }}</span>
+                        {% elif s >= 65 %}<span class="score-pill score-high">{{ s }}</span>
+                        {% else %}<span class="score-pill score-medium">{{ s }}</span>{% endif %}
+                    </td>
+                    <td style="font-size:11px;color:#92400e;font-weight:700;">RENEW OR REVOKE</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div style="padding:32px;text-align:center;color:#10b981;">
+            <i class="fas fa-circle-check" style="font-size:28px;display:block;margin-bottom:8px;"></i>
+            No exceptions expiring in the next 30 days.
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ── SECTION 3: Long Running ────────────────────────────────── -->
+<div class="card mb-4">
+    <div class="card-header" style="border-left:4px solid #ea580c;">
+        <span style="color:#ea580c;">
+            <i class="fas fa-hourglass-end me-2"></i>
+            NOTICE — Long-Running Exceptions (&gt;180 Days)
+            <span style="background:#ea580c;color:#fff;font-size:11px;padding:2px 8px;border-radius:20px;margin-left:8px;">{{ long_running|length }}</span>
+        </span>
+    </div>
+    <div class="card-body p-0">
+        {% if long_running %}
+        <table class="table data-table mb-0">
+            <thead>
+                <tr>
+                    <th>Exception ID</th>
+                    <th>Type</th>
+                    <th>Requester</th>
+                    <th>Start Date</th>
+                    <th>Alert</th>
+                    <th>Risk Score</th>
+                    <th>Recommendation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for exc in long_running %}
+                <tr>
+                    <td><code style="font-size:11px;color:#ea580c;">{{ exc.exception_id }}</code></td>
+                    <td style="font-size:12px;">{{ exc.type }}</td>
+                    <td style="font-size:12px;">{{ exc.requester }}</td>
+                    <td style="font-size:12px;">{{ exc.start_date }}</td>
+                    <td style="font-size:12px;color:#ea580c;">
+                        <i class="fas fa-hourglass-end me-1"></i>{{ exc.alert_msg }}
+                    </td>
+                    <td>
+                        {% set s = exc.risk_score %}
+                        {% if s >= 85 %}<span class="score-pill score-critical">{{ s }}</span>
+                        {% elif s >= 65 %}<span class="score-pill score-high">{{ s }}</span>
+                        {% else %}<span class="score-pill score-medium">{{ s }}</span>{% endif %}
+                    </td>
+                    <td style="font-size:11px;color:#ea580c;font-weight:700;">SCHEDULE RENEWAL REVIEW</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div style="padding:32px;text-align:center;color:#10b981;">
+            <i class="fas fa-circle-check" style="font-size:28px;display:block;margin-bottom:8px;"></i>
+            No long-running exceptions detected.
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ── SECTION 4: Stalled Reviews ────────────────────────────── -->
+<div class="card mb-4">
+    <div class="card-header" style="border-left:4px solid #3b82f6;">
+        <span style="color:#1e40af;">
+            <i class="fas fa-pause-circle me-2"></i>
+            NOTICE — Stalled Approval Reviews (&gt;30 Days Pending)
+            <span style="background:#3b82f6;color:#fff;font-size:11px;padding:2px 8px;border-radius:20px;margin-left:8px;">{{ stalled|length }}</span>
+        </span>
+    </div>
+    <div class="card-body p-0">
+        {% if stalled %}
+        <table class="table data-table mb-0">
+            <thead>
+                <tr>
+                    <th>Exception ID</th>
+                    <th>Type</th>
+                    <th>Requester</th>
+                    <th>Approver</th>
+                    <th>Alert</th>
+                    <th>Risk Score</th>
+                    <th>Recommendation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for exc in stalled %}
+                <tr style="background:#eff6ff;">
+                    <td><code style="font-size:11px;color:#3b82f6;">{{ exc.exception_id }}</code></td>
+                    <td style="font-size:12px;">{{ exc.type }}</td>
+                    <td style="font-size:12px;">{{ exc.requester }}</td>
+                    <td style="font-size:12px;">{{ exc.approver }}</td>
+                    <td style="font-size:12px;color:#1e40af;">
+                        <i class="fas fa-pause me-1"></i>{{ exc.alert_msg }}
+                    </td>
+                    <td>
+                        {% set s = exc.risk_score %}
+                        {% if s >= 65 %}<span class="score-pill score-high">{{ s }}</span>
+                        {% else %}<span class="score-pill score-medium">{{ s }}</span>{% endif %}
+                    </td>
+                    <td style="font-size:11px;color:#1e40af;font-weight:700;">ESCALATE TO APPROVER</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div style="padding:32px;text-align:center;color:#10b981;">
+            <i class="fas fa-circle-check" style="font-size:28px;display:block;margin-bottom:8px;"></i>
+            No stalled reviews — all pending items are within 30 days.
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ── SECTION 5: Critical Risk Active ───────────────────────── -->
+<div class="card">
+    <div class="card-header" style="border-left:4px solid #7c3aed;">
+        <span style="color:#7c3aed;">
+            <i class="fas fa-radiation me-2"></i>
+            CRITICAL RISK — Active Exceptions Requiring Re-Review
+            <span style="background:#7c3aed;color:#fff;font-size:11px;padding:2px 8px;border-radius:20px;margin-left:8px;">{{ critical_list|length }}</span>
+        </span>
+    </div>
+    <div class="card-body p-0">
+        {% if critical_list %}
+        <table class="table data-table mb-0">
+            <thead>
+                <tr>
+                    <th>Exception ID</th>
+                    <th>Type</th>
+                    <th>Requester</th>
+                    <th>Risk Level</th>
+                    <th>Alert</th>
+                    <th>Score</th>
+                    <th>Recommendation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for exc in critical_list %}
+                <tr style="background:#fdf4ff;">
+                    <td><code style="font-size:11px;color:#7c3aed;">{{ exc.exception_id }}</code></td>
+                    <td style="font-size:12px;">{{ exc.type }}</td>
+                    <td style="font-size:12px;">{{ exc.requester }}</td>
+                    <td class="risk-critical">{{ exc.risk_level }}</td>
+                    <td style="font-size:12px;color:#7c3aed;">
+                        <i class="fas fa-radiation me-1"></i>{{ exc.alert_msg }}
+                    </td>
+                    <td><span class="score-pill score-critical">{{ exc.risk_score }}</span></td>
+                    <td style="font-size:11px;color:#7c3aed;font-weight:700;">REVIEW WITH CISO</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div style="padding:32px;text-align:center;color:#10b981;">
+            <i class="fas fa-circle-check" style="font-size:28px;display:block;margin-bottom:8px;"></i>
+            No critical risk exceptions currently active.
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

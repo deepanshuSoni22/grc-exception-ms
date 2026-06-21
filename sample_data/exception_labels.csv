@@ -1,0 +1,601 @@
+exception_id,is_anomaly,anomaly_type,severity,explanation
+EXC-0073,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0479,False,NONE,NONE,Normal active exception within policy.
+EXC-0320,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 298 days (>180) without renewal.
+EXC-0441,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0331,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 362 days (>180) without renewal.
+EXC-0408,True,STALLED_REVIEW,MEDIUM,Exception pending review for 50 days (>30).
+EXC-0487,False,NONE,NONE,Normal active exception within policy.
+EXC-0499,False,NONE,NONE,Normal active exception within policy.
+EXC-0444,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0488,False,NONE,NONE,Normal active exception within policy.
+EXC-0188,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0522,False,NONE,NONE,Normal active exception within policy.
+EXC-0394,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 296 days (>90) without review.
+EXC-0477,False,NONE,NONE,Normal active exception within policy.
+EXC-0164,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0419,True,STALLED_REVIEW,MEDIUM,Exception pending review for 69 days (>30).
+EXC-0368,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 229 days (>90) without review.
+EXC-0341,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 368 days (>180) without renewal.
+EXC-0315,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 291 days (>180) without renewal.
+EXC-0240,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-10-15 but still marked ACTIVE.
+EXC-0439,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0113,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0278,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-09-01 but still marked ACTIVE.
+EXC-0146,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0356,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 311 days (>90) without review.
+EXC-0267,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-11-11 but still marked ACTIVE.
+EXC-0183,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0526,False,NONE,NONE,Normal active exception within policy.
+EXC-0575,False,NONE,NONE,Normal active exception within policy.
+EXC-0404,True,STALLED_REVIEW,MEDIUM,Exception pending review for 104 days (>30).
+EXC-0280,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-08-21 but still marked ACTIVE.
+EXC-0495,False,NONE,NONE,Normal active exception within policy.
+EXC-0036,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0535,False,NONE,NONE,Normal active exception within policy.
+EXC-0264,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-12-28 but still marked ACTIVE.
+EXC-0152,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0378,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 295 days (>90) without review.
+EXC-0203,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0221,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0283,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-07-12 but still marked ACTIVE.
+EXC-0129,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0512,False,NONE,NONE,Normal active exception within policy.
+EXC-0276,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-06-17 but still marked ACTIVE.
+EXC-0279,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-08-19 but still marked ACTIVE.
+EXC-0172,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0582,False,NONE,NONE,Normal active exception within policy.
+EXC-0035,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0008,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0044,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0137,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0396,True,STALLED_REVIEW,MEDIUM,Exception pending review for 52 days (>30).
+EXC-0588,False,NONE,NONE,Normal active exception within policy.
+EXC-0465,False,NONE,NONE,Normal active exception within policy.
+EXC-0401,True,STALLED_REVIEW,MEDIUM,Exception pending review for 175 days (>30).
+EXC-0474,False,NONE,NONE,Normal active exception within policy.
+EXC-0257,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-08-30 but still marked ACTIVE.
+EXC-0508,False,NONE,NONE,Normal active exception within policy.
+EXC-0578,False,NONE,NONE,Normal active exception within policy.
+EXC-0017,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0285,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-11-12 but still marked ACTIVE.
+EXC-0323,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 343 days (>180) without renewal.
+EXC-0242,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-12-23 but still marked ACTIVE.
+EXC-0365,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 207 days (>90) without review.
+EXC-0425,True,STALLED_REVIEW,MEDIUM,Exception pending review for 82 days (>30).
+EXC-0563,False,NONE,NONE,Normal active exception within policy.
+EXC-0600,False,NONE,NONE,Normal active exception within policy.
+EXC-0501,False,NONE,NONE,Normal active exception within policy.
+EXC-0293,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-08-14 but still marked ACTIVE.
+EXC-0012,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0005,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0043,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0446,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0105,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0400,True,STALLED_REVIEW,MEDIUM,Exception pending review for 55 days (>30).
+EXC-0380,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 301 days (>90) without review.
+EXC-0386,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 239 days (>90) without review.
+EXC-0087,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0145,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0362,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 286 days (>90) without review.
+EXC-0136,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0532,False,NONE,NONE,Normal active exception within policy.
+EXC-0189,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0328,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 359 days (>180) without renewal.
+EXC-0239,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-11-21 but still marked ACTIVE.
+EXC-0208,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0585,False,NONE,NONE,Normal active exception within policy.
+EXC-0123,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0383,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 317 days (>90) without review.
+EXC-0022,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0435,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0407,True,STALLED_REVIEW,MEDIUM,Exception pending review for 98 days (>30).
+EXC-0374,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 281 days (>90) without review.
+EXC-0469,False,NONE,NONE,Normal active exception within policy.
+EXC-0306,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 326 days (>180) without renewal.
+EXC-0084,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0312,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 312 days (>180) without renewal.
+EXC-0564,False,NONE,NONE,Normal active exception within policy.
+EXC-0063,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0125,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0525,False,NONE,NONE,Normal active exception within policy.
+EXC-0167,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0148,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0099,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0460,False,NONE,NONE,Normal active exception within policy.
+EXC-0219,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0037,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0133,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0070,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0452,False,NONE,NONE,Normal active exception within policy.
+EXC-0350,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 344 days (>180) without renewal.
+EXC-0480,False,NONE,NONE,Normal active exception within policy.
+EXC-0102,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0463,False,NONE,NONE,Normal active exception within policy.
+EXC-0169,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0295,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-06-06 but still marked ACTIVE.
+EXC-0088,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0415,True,STALLED_REVIEW,MEDIUM,Exception pending review for 115 days (>30).
+EXC-0032,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0080,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0118,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0079,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0160,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0392,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 204 days (>90) without review.
+EXC-0497,False,NONE,NONE,Normal active exception within policy.
+EXC-0555,False,NONE,NONE,Normal active exception within policy.
+EXC-0218,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0491,False,NONE,NONE,Normal active exception within policy.
+EXC-0030,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0484,False,NONE,NONE,Normal active exception within policy.
+EXC-0122,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0319,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 366 days (>180) without renewal.
+EXC-0185,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0473,False,NONE,NONE,Normal active exception within policy.
+EXC-0168,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0583,False,NONE,NONE,Normal active exception within policy.
+EXC-0593,False,NONE,NONE,Normal active exception within policy.
+EXC-0513,False,NONE,NONE,Normal active exception within policy.
+EXC-0090,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0370,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 279 days (>90) without review.
+EXC-0537,False,NONE,NONE,Normal active exception within policy.
+EXC-0138,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0220,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0456,False,NONE,NONE,Normal active exception within policy.
+EXC-0443,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0130,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0018,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0464,False,NONE,NONE,Normal active exception within policy.
+EXC-0180,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0057,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0135,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0485,False,NONE,NONE,Normal active exception within policy.
+EXC-0596,False,NONE,NONE,Normal active exception within policy.
+EXC-0238,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-12-30 but still marked ACTIVE.
+EXC-0289,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-06-19 but still marked ACTIVE.
+EXC-0265,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-11-17 but still marked ACTIVE.
+EXC-0126,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0078,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0542,False,NONE,NONE,Normal active exception within policy.
+EXC-0541,False,NONE,NONE,Normal active exception within policy.
+EXC-0083,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0531,False,NONE,NONE,Normal active exception within policy.
+EXC-0471,False,NONE,NONE,Normal active exception within policy.
+EXC-0040,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0120,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0334,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 340 days (>180) without renewal.
+EXC-0363,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 210 days (>90) without review.
+EXC-0299,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-10-20 but still marked ACTIVE.
+EXC-0423,True,STALLED_REVIEW,MEDIUM,Exception pending review for 185 days (>30).
+EXC-0406,True,STALLED_REVIEW,MEDIUM,Exception pending review for 190 days (>30).
+EXC-0034,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0273,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-09-08 but still marked ACTIVE.
+EXC-0402,True,STALLED_REVIEW,MEDIUM,Exception pending review for 128 days (>30).
+EXC-0332,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 349 days (>180) without renewal.
+EXC-0110,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0011,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0326,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 378 days (>180) without renewal.
+EXC-0579,False,NONE,NONE,Normal active exception within policy.
+EXC-0132,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0045,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0048,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0020,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0458,False,NONE,NONE,Normal active exception within policy.
+EXC-0388,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 229 days (>90) without review.
+EXC-0358,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 229 days (>90) without review.
+EXC-0352,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 303 days (>180) without renewal.
+EXC-0422,True,STALLED_REVIEW,MEDIUM,Exception pending review for 169 days (>30).
+EXC-0186,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0051,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0155,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0417,True,STALLED_REVIEW,MEDIUM,Exception pending review for 45 days (>30).
+EXC-0502,False,NONE,NONE,Normal active exception within policy.
+EXC-0375,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 246 days (>90) without review.
+EXC-0095,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0504,False,NONE,NONE,Normal active exception within policy.
+EXC-0342,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 321 days (>180) without renewal.
+EXC-0346,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 331 days (>180) without renewal.
+EXC-0163,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0391,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 255 days (>90) without review.
+EXC-0345,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 343 days (>180) without renewal.
+EXC-0200,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0159,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0530,False,NONE,NONE,Normal active exception within policy.
+EXC-0249,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-08-05 but still marked ACTIVE.
+EXC-0227,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-11-30 but still marked ACTIVE.
+EXC-0004,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0545,False,NONE,NONE,Normal active exception within policy.
+EXC-0518,False,NONE,NONE,Normal active exception within policy.
+EXC-0413,True,STALLED_REVIEW,MEDIUM,Exception pending review for 99 days (>30).
+EXC-0355,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 349 days (>180) without renewal.
+EXC-0494,False,NONE,NONE,Normal active exception within policy.
+EXC-0107,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0224,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0539,False,NONE,NONE,Normal active exception within policy.
+EXC-0301,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-10-21 but still marked ACTIVE.
+EXC-0171,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0424,True,STALLED_REVIEW,MEDIUM,Exception pending review for 171 days (>30).
+EXC-0251,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-11-11 but still marked ACTIVE.
+EXC-0528,False,NONE,NONE,Normal active exception within policy.
+EXC-0505,False,NONE,NONE,Normal active exception within policy.
+EXC-0366,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 257 days (>90) without review.
+EXC-0244,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-09-24 but still marked ACTIVE.
+EXC-0421,True,STALLED_REVIEW,MEDIUM,Exception pending review for 60 days (>30).
+EXC-0384,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 316 days (>90) without review.
+EXC-0100,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0389,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 307 days (>90) without review.
+EXC-0559,False,NONE,NONE,Normal active exception within policy.
+EXC-0511,False,NONE,NONE,Normal active exception within policy.
+EXC-0461,False,NONE,NONE,Normal active exception within policy.
+EXC-0572,False,NONE,NONE,Normal active exception within policy.
+EXC-0144,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0190,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0173,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0223,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0158,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0027,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0116,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0209,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0307,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 296 days (>180) without renewal.
+EXC-0009,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0139,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0496,False,NONE,NONE,Normal active exception within policy.
+EXC-0379,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 211 days (>90) without review.
+EXC-0076,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0201,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0274,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-11-04 but still marked ACTIVE.
+EXC-0016,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0291,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-07-04 but still marked ACTIVE.
+EXC-0038,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0065,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0523,False,NONE,NONE,Normal active exception within policy.
+EXC-0074,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0042,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0324,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 311 days (>180) without renewal.
+EXC-0193,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0305,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-10-23 but still marked ACTIVE.
+EXC-0571,False,NONE,NONE,Normal active exception within policy.
+EXC-0029,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0432,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0075,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0196,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0013,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0397,True,STALLED_REVIEW,MEDIUM,Exception pending review for 161 days (>30).
+EXC-0448,False,NONE,NONE,Normal active exception within policy.
+EXC-0217,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0147,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0481,False,NONE,NONE,Normal active exception within policy.
+EXC-0246,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-09-07 but still marked ACTIVE.
+EXC-0181,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0060,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0166,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0258,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-07-17 but still marked ACTIVE.
+EXC-0544,False,NONE,NONE,Normal active exception within policy.
+EXC-0489,False,NONE,NONE,Normal active exception within policy.
+EXC-0177,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0149,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0568,False,NONE,NONE,Normal active exception within policy.
+EXC-0529,False,NONE,NONE,Normal active exception within policy.
+EXC-0112,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0514,False,NONE,NONE,Normal active exception within policy.
+EXC-0154,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0558,False,NONE,NONE,Normal active exception within policy.
+EXC-0377,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 297 days (>90) without review.
+EXC-0071,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0440,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0349,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 311 days (>180) without renewal.
+EXC-0151,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0551,False,NONE,NONE,Normal active exception within policy.
+EXC-0581,False,NONE,NONE,Normal active exception within policy.
+EXC-0570,False,NONE,NONE,Normal active exception within policy.
+EXC-0426,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0215,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0197,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0311,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 372 days (>180) without renewal.
+EXC-0405,True,STALLED_REVIEW,MEDIUM,Exception pending review for 86 days (>30).
+EXC-0199,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0482,False,NONE,NONE,Normal active exception within policy.
+EXC-0066,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0089,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0297,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-10-16 but still marked ACTIVE.
+EXC-0091,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0515,False,NONE,NONE,Normal active exception within policy.
+EXC-0459,False,NONE,NONE,Normal active exception within policy.
+EXC-0300,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-11-22 but still marked ACTIVE.
+EXC-0569,False,NONE,NONE,Normal active exception within policy.
+EXC-0284,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-07-21 but still marked ACTIVE.
+EXC-0025,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0272,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-08-11 but still marked ACTIVE.
+EXC-0546,False,NONE,NONE,Normal active exception within policy.
+EXC-0387,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 308 days (>90) without review.
+EXC-0069,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0412,True,STALLED_REVIEW,MEDIUM,Exception pending review for 79 days (>30).
+EXC-0316,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 343 days (>180) without renewal.
+EXC-0322,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 296 days (>180) without renewal.
+EXC-0231,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-08-04 but still marked ACTIVE.
+EXC-0064,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0302,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-06-11 but still marked ACTIVE.
+EXC-0466,False,NONE,NONE,Normal active exception within policy.
+EXC-0550,False,NONE,NONE,Normal active exception within policy.
+EXC-0056,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0498,False,NONE,NONE,Normal active exception within policy.
+EXC-0521,False,NONE,NONE,Normal active exception within policy.
+EXC-0235,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-07-25 but still marked ACTIVE.
+EXC-0589,False,NONE,NONE,Normal active exception within policy.
+EXC-0202,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0062,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0097,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0101,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0472,False,NONE,NONE,Normal active exception within policy.
+EXC-0131,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0364,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 284 days (>90) without review.
+EXC-0210,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0072,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0253,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-11-05 but still marked ACTIVE.
+EXC-0492,False,NONE,NONE,Normal active exception within policy.
+EXC-0453,False,NONE,NONE,Normal active exception within policy.
+EXC-0055,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0192,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0434,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0281,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-12-30 but still marked ACTIVE.
+EXC-0150,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0325,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 329 days (>180) without renewal.
+EXC-0182,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0447,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0002,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0543,False,NONE,NONE,Normal active exception within policy.
+EXC-0338,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 312 days (>180) without renewal.
+EXC-0587,False,NONE,NONE,Normal active exception within policy.
+EXC-0507,False,NONE,NONE,Normal active exception within policy.
+EXC-0232,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-08-19 but still marked ACTIVE.
+EXC-0360,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 280 days (>90) without review.
+EXC-0516,False,NONE,NONE,Normal active exception within policy.
+EXC-0243,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-06-27 but still marked ACTIVE.
+EXC-0308,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 312 days (>180) without renewal.
+EXC-0318,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 318 days (>180) without renewal.
+EXC-0287,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-07-24 but still marked ACTIVE.
+EXC-0403,True,STALLED_REVIEW,MEDIUM,Exception pending review for 115 days (>30).
+EXC-0233,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-09-05 but still marked ACTIVE.
+EXC-0470,False,NONE,NONE,Normal active exception within policy.
+EXC-0416,True,STALLED_REVIEW,MEDIUM,Exception pending review for 125 days (>30).
+EXC-0187,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0599,False,NONE,NONE,Normal active exception within policy.
+EXC-0503,False,NONE,NONE,Normal active exception within policy.
+EXC-0344,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 325 days (>180) without renewal.
+EXC-0450,False,NONE,NONE,Normal active exception within policy.
+EXC-0106,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0288,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-10-18 but still marked ACTIVE.
+EXC-0261,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-11-15 but still marked ACTIVE.
+EXC-0156,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0327,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 362 days (>180) without renewal.
+EXC-0574,False,NONE,NONE,Normal active exception within policy.
+EXC-0310,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 326 days (>180) without renewal.
+EXC-0520,False,NONE,NONE,Normal active exception within policy.
+EXC-0001,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0398,True,STALLED_REVIEW,MEDIUM,Exception pending review for 171 days (>30).
+EXC-0562,False,NONE,NONE,Normal active exception within policy.
+EXC-0019,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0212,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0395,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 222 days (>90) without review.
+EXC-0053,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0519,False,NONE,NONE,Normal active exception within policy.
+EXC-0335,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 332 days (>180) without renewal.
+EXC-0382,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 234 days (>90) without review.
+EXC-0255,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-09-29 but still marked ACTIVE.
+EXC-0061,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0162,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0229,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-08-12 but still marked ACTIVE.
+EXC-0256,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-08-28 but still marked ACTIVE.
+EXC-0046,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0230,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-11-13 but still marked ACTIVE.
+EXC-0294,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-12-13 but still marked ACTIVE.
+EXC-0228,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-09-21 but still marked ACTIVE.
+EXC-0236,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-08-15 but still marked ACTIVE.
+EXC-0527,False,NONE,NONE,Normal active exception within policy.
+EXC-0566,False,NONE,NONE,Normal active exception within policy.
+EXC-0557,False,NONE,NONE,Normal active exception within policy.
+EXC-0194,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0414,True,STALLED_REVIEW,MEDIUM,Exception pending review for 120 days (>30).
+EXC-0282,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-10-07 but still marked ACTIVE.
+EXC-0438,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0260,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-09-30 but still marked ACTIVE.
+EXC-0026,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0143,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0170,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0124,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0553,False,NONE,NONE,Normal active exception within policy.
+EXC-0252,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-10-10 but still marked ACTIVE.
+EXC-0594,False,NONE,NONE,Normal active exception within policy.
+EXC-0595,False,NONE,NONE,Normal active exception within policy.
+EXC-0085,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0254,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-09-01 but still marked ACTIVE.
+EXC-0547,False,NONE,NONE,Normal active exception within policy.
+EXC-0580,False,NONE,NONE,Normal active exception within policy.
+EXC-0081,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0330,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 325 days (>180) without renewal.
+EXC-0006,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0028,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0534,False,NONE,NONE,Normal active exception within policy.
+EXC-0286,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-06-11 but still marked ACTIVE.
+EXC-0538,False,NONE,NONE,Normal active exception within policy.
+EXC-0500,False,NONE,NONE,Normal active exception within policy.
+EXC-0329,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 336 days (>180) without renewal.
+EXC-0347,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 296 days (>180) without renewal.
+EXC-0340,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 358 days (>180) without renewal.
+EXC-0178,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0247,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-11-14 but still marked ACTIVE.
+EXC-0128,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0462,False,NONE,NONE,Normal active exception within policy.
+EXC-0592,False,NONE,NONE,Normal active exception within policy.
+EXC-0222,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0049,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0317,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 342 days (>180) without renewal.
+EXC-0359,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 295 days (>90) without review.
+EXC-0353,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 323 days (>180) without renewal.
+EXC-0268,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-12-23 but still marked ACTIVE.
+EXC-0266,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-09-22 but still marked ACTIVE.
+EXC-0598,False,NONE,NONE,Normal active exception within policy.
+EXC-0343,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 329 days (>180) without renewal.
+EXC-0115,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0565,False,NONE,NONE,Normal active exception within policy.
+EXC-0371,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 306 days (>90) without review.
+EXC-0296,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-08-30 but still marked ACTIVE.
+EXC-0381,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 291 days (>90) without review.
+EXC-0393,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 284 days (>90) without review.
+EXC-0269,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-07-03 but still marked ACTIVE.
+EXC-0475,False,NONE,NONE,Normal active exception within policy.
+EXC-0445,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0361,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 265 days (>90) without review.
+EXC-0007,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0161,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0336,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 321 days (>180) without renewal.
+EXC-0134,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0033,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0024,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0226,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-11-02 but still marked ACTIVE.
+EXC-0577,False,NONE,NONE,Normal active exception within policy.
+EXC-0584,False,NONE,NONE,Normal active exception within policy.
+EXC-0490,False,NONE,NONE,Normal active exception within policy.
+EXC-0250,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-12-16 but still marked ACTIVE.
+EXC-0478,False,NONE,NONE,Normal active exception within policy.
+EXC-0067,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0457,False,NONE,NONE,Normal active exception within policy.
+EXC-0373,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 224 days (>90) without review.
+EXC-0430,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0451,False,NONE,NONE,Normal active exception within policy.
+EXC-0351,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 349 days (>180) without renewal.
+EXC-0442,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0015,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0314,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 308 days (>180) without renewal.
+EXC-0184,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0399,True,STALLED_REVIEW,MEDIUM,Exception pending review for 113 days (>30).
+EXC-0195,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0313,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 310 days (>180) without renewal.
+EXC-0540,False,NONE,NONE,Normal active exception within policy.
+EXC-0225,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0348,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 351 days (>180) without renewal.
+EXC-0292,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-09-28 but still marked ACTIVE.
+EXC-0411,True,STALLED_REVIEW,MEDIUM,Exception pending review for 132 days (>30).
+EXC-0248,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-12-30 but still marked ACTIVE.
+EXC-0554,False,NONE,NONE,Normal active exception within policy.
+EXC-0467,False,NONE,NONE,Normal active exception within policy.
+EXC-0214,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0054,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0082,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0433,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0483,False,NONE,NONE,Normal active exception within policy.
+EXC-0031,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0372,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 271 days (>90) without review.
+EXC-0357,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 247 days (>90) without review.
+EXC-0068,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0058,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0086,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0409,True,STALLED_REVIEW,MEDIUM,Exception pending review for 128 days (>30).
+EXC-0454,False,NONE,NONE,Normal active exception within policy.
+EXC-0333,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 346 days (>180) without renewal.
+EXC-0216,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0410,True,STALLED_REVIEW,MEDIUM,Exception pending review for 85 days (>30).
+EXC-0245,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-08-29 but still marked ACTIVE.
+EXC-0436,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0354,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 315 days (>180) without renewal.
+EXC-0198,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0428,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0140,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0234,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-11-19 but still marked ACTIVE.
+EXC-0549,False,NONE,NONE,Normal active exception within policy.
+EXC-0560,False,NONE,NONE,Normal active exception within policy.
+EXC-0206,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0059,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0094,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0176,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0418,True,STALLED_REVIEW,MEDIUM,Exception pending review for 78 days (>30).
+EXC-0191,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0096,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0275,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-07-15 but still marked ACTIVE.
+EXC-0449,False,NONE,NONE,Normal active exception within policy.
+EXC-0556,False,NONE,NONE,Normal active exception within policy.
+EXC-0337,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 311 days (>180) without renewal.
+EXC-0175,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0142,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0576,False,NONE,NONE,Normal active exception within policy.
+EXC-0047,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0098,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0586,False,NONE,NONE,Normal active exception within policy.
+EXC-0437,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0321,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 367 days (>180) without renewal.
+EXC-0369,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 248 days (>90) without review.
+EXC-0298,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-09-02 but still marked ACTIVE.
+EXC-0552,False,NONE,NONE,Normal active exception within policy.
+EXC-0179,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0103,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0052,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0476,False,NONE,NONE,Normal active exception within policy.
+EXC-0271,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-12-13 but still marked ACTIVE.
+EXC-0304,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-09-09 but still marked ACTIVE.
+EXC-0468,False,NONE,NONE,Normal active exception within policy.
+EXC-0237,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-08-26 but still marked ACTIVE.
+EXC-0263,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-08-08 but still marked ACTIVE.
+EXC-0573,False,NONE,NONE,Normal active exception within policy.
+EXC-0077,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0567,False,NONE,NONE,Normal active exception within policy.
+EXC-0093,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0153,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0506,False,NONE,NONE,Normal active exception within policy.
+EXC-0114,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0092,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0014,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0003,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0241,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-12-14 but still marked ACTIVE.
+EXC-0339,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 372 days (>180) without renewal.
+EXC-0493,False,NONE,NONE,Normal active exception within policy.
+EXC-0213,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0509,False,NONE,NONE,Normal active exception within policy.
+EXC-0041,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0165,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0303,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-09-25 but still marked ACTIVE.
+EXC-0420,True,STALLED_REVIEW,MEDIUM,Exception pending review for 100 days (>30).
+EXC-0367,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 199 days (>90) without review.
+EXC-0207,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0536,False,NONE,NONE,Normal active exception within policy.
+EXC-0270,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-06-09 but still marked ACTIVE.
+EXC-0205,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0204,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0510,False,NONE,NONE,Normal active exception within policy.
+EXC-0109,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0117,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0290,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-07-23 but still marked ACTIVE.
+EXC-0121,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0524,False,NONE,NONE,Normal active exception within policy.
+EXC-0108,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0429,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0141,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0277,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-10-09 but still marked ACTIVE.
+EXC-0533,False,NONE,NONE,Normal active exception within policy.
+EXC-0104,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0431,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0309,True,LONG_RUNNING_EXCEPTION,HIGH,Exception running for 306 days (>180) without renewal.
+EXC-0010,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0211,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0157,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0486,False,NONE,NONE,Normal active exception within policy.
+EXC-0259,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-07-22 but still marked ACTIVE.
+EXC-0561,False,NONE,NONE,Normal active exception within policy.
+EXC-0597,False,NONE,NONE,Normal active exception within policy.
+EXC-0390,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 311 days (>90) without review.
+EXC-0455,False,NONE,NONE,Normal active exception within policy.
+EXC-0427,True,CRITICAL_RISK_EXCEPTION,CRITICAL,Critical risk exception requiring immediate re-review.
+EXC-0119,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0590,False,NONE,NONE,Normal active exception within policy.
+EXC-0021,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0111,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0591,False,NONE,NONE,Normal active exception within policy.
+EXC-0050,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0548,False,NONE,NONE,Normal active exception within policy.
+EXC-0262,True,EXPIRED_ACTIVE_EXCEPTION,CRITICAL,Exception expired on 2025-09-07 but still marked ACTIVE.
+EXC-0385,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 305 days (>90) without review.
+EXC-0039,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0376,True,HIGH_RISK_LONG_EXCEPTION,HIGH,High-risk exception active for 221 days (>90) without review.
+EXC-0127,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0174,False,NONE,NONE,"Clean lifecycle, properly revoked."
+EXC-0517,False,NONE,NONE,Normal active exception within policy.
+EXC-0023,False,NONE,NONE,"Clean lifecycle, properly revoked."

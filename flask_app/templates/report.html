@@ -1,0 +1,332 @@
+{% extends "base.html" %}
+{% block title %}Audit Report — GRC{% endblock %}
+{% block page_title %}Audit Report{% endblock %}
+
+{% block content %}
+
+<!-- ── Action Bar ─────────────────────────────────────────────── -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div style="font-size:13px;color:#64748b;">
+        <i class="fas fa-calendar me-1"></i>
+        Report generated: <strong>{{ report_date }}</strong> &nbsp;|&nbsp;
+        Period: <strong>{{ time_range }}</strong>
+    </div>
+    <div class="d-flex gap-2">
+        <form method="POST" action="/send-report" style="display:inline;">
+            <button type="submit" class="btn btn-sm btn-primary">
+                <i class="fas fa-paper-plane me-1"></i>Send Report via Email
+            </button>
+        </form>
+        <a href="/export/excel" class="btn btn-sm btn-success">
+            <i class="fas fa-file-excel me-1"></i>Export to Excel
+        </a>
+        <button onclick="window.print()" class="btn btn-sm btn-outline-secondary">
+            <i class="fas fa-print me-1"></i>Print Report
+        </button>
+    </div>
+</div>
+
+<!-- ── Report Container ───────────────────────────────────────── -->
+<div id="auditReport">
+
+<!-- HEADER -->
+<div class="card mb-4" style="border-top:4px solid #0f172a;">
+    <div class="card-body" style="padding:32px;">
+        <div class="d-flex justify-content-between align-items-start">
+            <div>
+                <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#64748b;margin-bottom:8px;">
+                    CONFIDENTIAL — INTERNAL AUDIT
+                </div>
+                <h2 style="font-size:22px;font-weight:800;color:#0f172a;margin:0 0 4px;">
+                    Exception Portfolio Summary
+                </h2>
+                <div style="font-size:13px;color:#64748b;">
+                    GRC Policy Waiver Management System &nbsp;·&nbsp; Report Date: {{ report_date }}
+                </div>
+            </div>
+            <div style="text-align:right;">
+                <div style="font-size:11px;color:#94a3b8;margin-bottom:4px;">Report Period</div>
+                <div style="font-size:13px;font-weight:600;color:#0f172a;">{{ time_range }}</div>
+                <div style="font-size:11px;color:#94a3b8;margin-top:8px;">Total Records</div>
+                <div style="font-size:22px;font-weight:800;color:#3b82f6;">{{ total_exceptions }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<div class="card mb-4">
+    <div class="card-header" style="font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;">
+        <i class="fas fa-chart-line me-2" style="color:#3b82f6;"></i>Executive Summary
+    </div>
+    <div class="card-body" style="padding:24px;">
+
+        <div class="row g-3 mb-4">
+            <div class="col-md-3">
+                <div style="text-align:center;padding:20px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;">
+                    <div style="font-size:32px;font-weight:800;color:#0f172a;">{{ total_active }}</div>
+                    <div style="font-size:12px;color:#64748b;margin-top:4px;">Total Active Exceptions</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div style="text-align:center;padding:20px;background:#fff5f5;border-radius:10px;border:1px solid #fecaca;">
+                    <div style="font-size:32px;font-weight:800;color:#dc2626;">{{ high_risk_count }}</div>
+                    <div style="font-size:12px;color:#dc2626;margin-top:4px;">HIGH / CRITICAL Risk</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div style="text-align:center;padding:20px;background:#fffbeb;border-radius:10px;border:1px solid #fde68a;">
+                    <div style="font-size:32px;font-weight:800;color:#d97706;">{{ expiring_this_month|length }}</div>
+                    <div style="font-size:12px;color:#d97706;margin-top:4px;">Expiring This Month</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div style="text-align:center;padding:20px;background:#fff5f5;border-radius:10px;border:1px solid #fecaca;">
+                    <div style="font-size:32px;font-weight:800;color:#ef4444;">{{ expired_not_revoked|length }}</div>
+                    <div style="font-size:12px;color:#ef4444;margin-top:4px;">Expired (Not Revoked)</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="background:#f8fafc;border-radius:8px;padding:16px 20px;font-size:13px;line-height:1.8;color:#374151;border-left:4px solid #3b82f6;">
+            <strong>Summary:</strong>
+            The organization currently maintains <strong>{{ total_active }}</strong> active policy exceptions.
+            Of these, <strong style="color:#dc2626;">{{ high_risk_count }}</strong> are classified as HIGH or CRITICAL risk,
+            requiring prioritized review.
+            <strong style="color:#ef4444;">{{ expired_not_revoked|length }}</strong> exception(s) have passed their end date
+            but remain active — representing an immediate compliance gap.
+            <strong style="color:#d97706;">{{ expiring_this_month|length }}</strong> exception(s) are due for renewal
+            or revocation within the next 30 days.
+            {% if overdue_review %}
+            Additionally, <strong style="color:#3b82f6;">{{ overdue_review|length }}</strong> exception(s) have been
+            pending approval for more than 30 days without action.
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- BREAKDOWN BY TYPE -->
+<div class="card mb-4">
+    <div class="card-header" style="font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;">
+        <i class="fas fa-layer-group me-2" style="color:#3b82f6;"></i>Breakdown by Exception Type
+    </div>
+    <div class="card-body" style="padding:24px;">
+        <table class="table data-table">
+            <thead>
+                <tr>
+                    <th>Exception Type</th>
+                    <th>Active Count</th>
+                    <th>Volume</th>
+                    <th>Inherent Risk</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set risk_map = {
+                    'Admin Access': 'HIGH',
+                    'Root Access': 'HIGH',
+                    'Encryption Waiver': 'HIGH',
+                    'Firewall Exception': 'MEDIUM',
+                    'MFA Bypass': 'MEDIUM',
+                    'VPN Bypass': 'MEDIUM',
+                    'Data Retention Waiver': 'MEDIUM',
+                    'Password Policy Exception': 'MEDIUM',
+                    'Network Access': 'LOW'
+                } %}
+                {% set total_type = namespace(val=0) %}
+                {% for t, cnt in type_counts.items() %}
+                    {% set total_type.val = total_type.val + cnt %}
+                {% endfor %}
+                {% for t, cnt in type_counts.items() | sort(attribute='1', reverse=True) %}
+                {% set pct = ((cnt / total_active) * 100) | round(1) if total_active > 0 else 0 %}
+                {% set r = risk_map.get(t, 'MEDIUM') %}
+                <tr>
+                    <td style="font-weight:600;font-size:13px;">{{ t }}</td>
+                    <td style="font-size:13px;font-weight:700;">{{ cnt }}</td>
+                    <td style="min-width:180px;">
+                        <div style="background:#e2e8f0;border-radius:4px;height:8px;overflow:hidden;">
+                            <div style="width:{{ pct }}%;background:{% if r=='HIGH' %}#ef4444{% elif r=='MEDIUM' %}#f59e0b{% else %}#10b981{% endif %};height:100%;border-radius:4px;"></div>
+                        </div>
+                        <span style="font-size:11px;color:#94a3b8;">{{ pct }}%</span>
+                    </td>
+                    <td class="risk-{{ r | lower }}">{{ r }} RISK</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- TOP HIGH-RISK EXCEPTIONS -->
+<div class="card mb-4">
+    <div class="card-header" style="font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;">
+        <i class="fas fa-fire me-2" style="color:#ef4444;"></i>Top High-Risk Exceptions
+    </div>
+    <div class="card-body p-0">
+        <table class="table data-table mb-0">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Exception ID</th>
+                    <th>Type</th>
+                    <th>Requester</th>
+                    <th>Business Unit</th>
+                    <th>End Date</th>
+                    <th>Risk Level</th>
+                    <th>Score</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for exc in top_high %}
+                <tr class="row-{{ exc.display_status }}">
+                    <td style="color:#94a3b8;font-weight:700;">{{ loop.index }}</td>
+                    <td><code style="font-size:11px;color:#dc2626;">{{ exc.exception_id }}</code></td>
+                    <td style="font-size:12px;">{{ exc.type }}</td>
+                    <td style="font-size:12px;">{{ exc.requester }}</td>
+                    <td style="font-size:12px;">{{ exc.business_unit or '—' }}</td>
+                    <td style="font-size:12px;">{{ exc.end_date }}</td>
+                    <td class="risk-{{ exc.risk_level | lower }}">{{ exc.risk_level }}</td>
+                    <td><span class="score-pill score-{% if exc.risk_score >= 85 %}critical{% elif exc.risk_score >= 65 %}high{% else %}medium{% endif %}">{{ exc.risk_score }}</span></td>
+                    <td><span class="badge-{{ exc.display_status }}">{{ exc.display_status | upper }}</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- RECOMMENDATIONS -->
+<div class="card mb-4">
+    <div class="card-header" style="font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;">
+        <i class="fas fa-clipboard-list me-2" style="color:#3b82f6;"></i>Recommendations
+    </div>
+    <div class="card-body" style="padding:24px;">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+
+            {% if expired_not_revoked %}
+            <div style="display:flex;gap:12px;padding:14px 16px;background:#fff5f5;border-radius:8px;border-left:4px solid #dc2626;">
+                <i class="fas fa-arrow-right" style="color:#dc2626;margin-top:2px;flex-shrink:0;"></i>
+                <div style="font-size:13px;color:#374151;">
+                    <strong style="color:#dc2626;">IMMEDIATE:</strong>
+                    Revoke <strong>{{ expired_not_revoked|length }}</strong> expired exception(s) still marked ACTIVE.
+                    These represent open compliance violations and must be closed within 24 hours.
+                </div>
+            </div>
+            {% endif %}
+
+            {% if expiring_this_month %}
+            <div style="display:flex;gap:12px;padding:14px 16px;background:#fffbeb;border-radius:8px;border-left:4px solid #f59e0b;">
+                <i class="fas fa-arrow-right" style="color:#f59e0b;margin-top:2px;flex-shrink:0;"></i>
+                <div style="font-size:13px;color:#374151;">
+                    <strong style="color:#d97706;">THIS MONTH:</strong>
+                    Schedule renewal or revocation decisions for
+                    <strong>{{ expiring_this_month|length }}</strong> exception(s) expiring within 30 days.
+                    Ensure approvers are notified at least 7 days before expiry.
+                </div>
+            </div>
+            {% endif %}
+
+            {% if overdue_review %}
+            <div style="display:flex;gap:12px;padding:14px 16px;background:#eff6ff;border-radius:8px;border-left:4px solid #3b82f6;">
+                <i class="fas fa-arrow-right" style="color:#3b82f6;margin-top:2px;flex-shrink:0;"></i>
+                <div style="font-size:13px;color:#374151;">
+                    <strong style="color:#1e40af;">PROCESS:</strong>
+                    Escalate <strong>{{ overdue_review|length }}</strong> stalled approval(s) pending for over 30 days.
+                    Implement SLA enforcement — approvals must be completed within 5 business days of submission.
+                </div>
+            </div>
+            {% endif %}
+
+            <div style="display:flex;gap:12px;padding:14px 16px;background:#f0fdf4;border-radius:8px;border-left:4px solid #10b981;">
+                <i class="fas fa-arrow-right" style="color:#10b981;margin-top:2px;flex-shrink:0;"></i>
+                <div style="font-size:13px;color:#374151;">
+                    <strong style="color:#065f46;">GOVERNANCE:</strong>
+                    Conduct quarterly reviews for all HIGH and CRITICAL risk exceptions.
+                    Exceptions running beyond 180 days without renewal should trigger automatic escalation to the CISO.
+                </div>
+            </div>
+
+            <div style="display:flex;gap:12px;padding:14px 16px;background:#f0fdf4;border-radius:8px;border-left:4px solid #10b981;">
+                <i class="fas fa-arrow-right" style="color:#10b981;margin-top:2px;flex-shrink:0;"></i>
+                <div style="font-size:13px;color:#374151;">
+                    <strong style="color:#065f46;">TRAINING:</strong>
+                    Ensure all approvers understand exception lifecycle obligations.
+                    Exceptions are time-limited grants — not permanent policy changes.
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- AUDIT READINESS -->
+<div class="card">
+    <div class="card-header" style="font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;">
+        <i class="fas fa-shield-check me-2" style="color:#10b981;"></i>Next Audit Readiness
+    </div>
+    <div class="card-body" style="padding:24px;">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;color:#374151;">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <i class="fas fa-circle-check" style="color:#10b981;width:16px;"></i>
+                        All <strong>{{ total_exceptions }}</strong> exceptions fully documented in central registry
+                    </div>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <i class="fas fa-circle-check" style="color:#10b981;width:16px;"></i>
+                        <strong>{{ approval_pct }}%</strong> of exceptions have approver records on file
+                    </div>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        {% if expired_not_revoked|length > 0 %}
+                        <i class="fas fa-circle-xmark" style="color:#dc2626;width:16px;"></i>
+                        <span style="color:#dc2626;"><strong>{{ expired_not_revoked|length }}</strong> exceptions expired but not revoked — compliance gap</span>
+                        {% else %}
+                        <i class="fas fa-circle-check" style="color:#10b981;width:16px;"></i>
+                        No expired-active exceptions — revocation process healthy
+                        {% endif %}
+                    </div>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        {% if overdue_review|length > 0 %}
+                        <i class="fas fa-circle-exclamation" style="color:#f59e0b;width:16px;"></i>
+                        <strong>{{ overdue_review|length }}</strong> exceptions overdue for review
+                        {% else %}
+                        <i class="fas fa-circle-check" style="color:#10b981;width:16px;"></i>
+                        All pending exceptions within review SLA
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- Readiness Score -->
+                {% set issues = (expired_not_revoked|length) + (overdue_review|length) %}
+                {% set readiness = [100 - (issues * 5), 0] | max %}
+                <div style="text-align:center;padding:20px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;">
+                    <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#64748b;margin-bottom:8px;">
+                        Audit Readiness Score
+                    </div>
+                    <div style="font-size:48px;font-weight:900;color:{% if readiness >= 80 %}#10b981{% elif readiness >= 60 %}#f59e0b{% else %}#dc2626{% endif %};">
+                        {{ readiness }}%
+                    </div>
+                    <div style="font-size:12px;color:#64748b;margin-top:4px;">
+                        {% if readiness >= 80 %}Ready for audit{% elif readiness >= 60 %}Needs attention before audit{% else %}Critical gaps — resolve before audit{% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div><!-- end auditReport -->
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+@media print {
+    .sidebar, .topbar, .d-flex.justify-content-between.mb-4 { display: none !important; }
+    .main-wrapper { margin-left: 0 !important; }
+    .page-content { padding: 0 !important; }
+    .card { box-shadow: none !important; break-inside: avoid; }
+}
+</style>
+{% endblock %}

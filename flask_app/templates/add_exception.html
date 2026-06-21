@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+{% block title %}Log Exception — GRC{% endblock %}
+{% block page_title %}Log New Exception{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+<div class="col-lg-8">
+
+    <!-- Info Banner -->
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:14px 20px;margin-bottom:24px;display:flex;align-items:center;gap:12px;">
+        <i class="fas fa-circle-info" style="color:#3b82f6;font-size:18px;flex-shrink:0;"></i>
+        <div style="font-size:13px;color:#1e40af;">
+            All exceptions are automatically risk-scored and anomaly-checked upon submission.
+            Fields marked <span style="color:#dc2626;font-weight:700;">*</span> are required.
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" style="padding:18px 24px;">
+            <i class="fas fa-plus-circle me-2" style="color:#3b82f6;"></i>Exception Details
+        </div>
+        <div class="card-body" style="padding:28px;">
+
+            <form method="POST" action="/add">
+
+                <!-- Row 1: Type + Business Unit -->
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold" style="font-size:13px;">
+                            Exception Type <span style="color:#dc2626;">*</span>
+                        </label>
+                        <select name="type" class="form-select" required>
+                            <option value="" disabled selected>Select exception type…</option>
+                            {% for t in exception_types %}
+                            <option value="{{ t }}">{{ t }}</option>
+                            {% endfor %}
+                        </select>
+                        <div style="font-size:11px;color:#94a3b8;margin-top:4px;">Admin/Root access carries highest risk score</div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold" style="font-size:13px;">
+                            Business Unit <span style="color:#dc2626;">*</span>
+                        </label>
+                        <select name="business_unit" class="form-select" required>
+                            <option value="" disabled selected>Select business unit…</option>
+                            {% for b in business_units %}
+                            <option value="{{ b }}">{{ b }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Row 2: Requester + Approver -->
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold" style="font-size:13px;">
+                            Requester Name <span style="color:#dc2626;">*</span>
+                        </label>
+                        <input type="text" name="requester" class="form-control"
+                               placeholder="e.g. Jane Smith" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold" style="font-size:13px;">
+                            Approver Name <span style="color:#dc2626;">*</span>
+                        </label>
+                        <input type="text" name="approver" class="form-control"
+                               placeholder="e.g. John Manager" required>
+                    </div>
+                </div>
+
+                <!-- Row 3: Start Date + End Date -->
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold" style="font-size:13px;">
+                            Start Date <span style="color:#dc2626;">*</span>
+                        </label>
+                        <input type="date" name="start_date" class="form-control"
+                               value="{{ today }}" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold" style="font-size:13px;">
+                            End Date <span style="color:#dc2626;">*</span>
+                        </label>
+                        <input type="date" name="end_date" class="form-control" required>
+                        <div style="font-size:11px;color:#94a3b8;margin-top:4px;">Exceptions past end date still marked ACTIVE will be flagged as anomalies</div>
+                    </div>
+                </div>
+
+                <!-- Row 4: Status + Risk Level -->
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold" style="font-size:13px;">
+                            Status <span style="color:#dc2626;">*</span>
+                        </label>
+                        <select name="status" class="form-select" required>
+                            <option value="PENDING" selected>PENDING — Awaiting Approval</option>
+                            <option value="ACTIVE">ACTIVE — Approved</option>
+                            <option value="REVOKED">REVOKED — Cancelled</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold" style="font-size:13px;">
+                            Risk Level <span style="color:#dc2626;">*</span>
+                        </label>
+                        <select name="risk_level" class="form-select" required id="riskSelect">
+                            {% for r in risk_levels %}
+                            <option value="{{ r }}">{{ r }}</option>
+                            {% endfor %}
+                        </select>
+                        <!-- Live risk indicator -->
+                        <div id="riskIndicator" style="margin-top:8px;display:none;padding:8px 12px;border-radius:6px;font-size:12px;font-weight:600;"></div>
+                    </div>
+                </div>
+
+                <!-- Justification -->
+                <div class="mb-4">
+                    <label class="form-label fw-semibold" style="font-size:13px;">
+                        Business Justification <span style="color:#dc2626;">*</span>
+                    </label>
+                    <textarea name="justification" class="form-control" rows="4"
+                              placeholder="Provide a clear business justification for this exception. Include: why it is needed, what controls are in place, and when it will be removed…"
+                              required id="justificationField"></textarea>
+                    <div class="d-flex justify-content-between mt-1">
+                        <div style="font-size:11px;color:#94a3b8;">Minimum 6 words required. Vague justifications increase risk score.</div>
+                        <div id="wordCount" style="font-size:11px;color:#94a3b8;">0 words</div>
+                    </div>
+                </div>
+
+                <!-- Submit -->
+                <div class="d-flex gap-3">
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="fas fa-shield-check me-2"></i>Submit & Score Exception
+                    </button>
+                    <a href="/exceptions" class="btn btn-outline-secondary px-4">
+                        Cancel
+                    </a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- Risk Scoring Info Box -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <i class="fas fa-info-circle me-2" style="color:#64748b;"></i>How Risk Scoring Works
+        </div>
+        <div class="card-body" style="padding:20px 24px;">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div style="font-size:13px;font-weight:600;color:#0f172a;margin-bottom:8px;">Score Factors</div>
+                    <div style="font-size:12px;color:#475569;line-height:1.8;">
+                        <div><span style="color:#dc2626;font-weight:700;">+40 pts</span> — Admin / Root Access</div>
+                        <div><span style="color:#ea580c;font-weight:700;">+45 pts</span> — Critical risk level declared</div>
+                        <div><span style="color:#d97706;font-weight:700;">+15 pts</span> — Running more than 180 days</div>
+                        <div><span style="color:#d97706;font-weight:700;">+20 pts</span> — Expired but still Active (zombie)</div>
+                        <div><span style="color:#64748b;font-weight:700;">+5 pts</span>  — Justification under 6 words</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div style="font-size:13px;font-weight:600;color:#0f172a;margin-bottom:8px;">Score Thresholds</div>
+                    <div style="font-size:12px;color:#475569;line-height:1.8;">
+                        <div><span class="score-pill score-critical" style="margin-right:6px;">85–100</span> Critical — Immediate review</div>
+                        <div style="margin-top:4px;"><span class="score-pill score-high" style="margin-right:6px;">65–84</span> High — Escalate to CISO</div>
+                        <div style="margin-top:4px;"><span class="score-pill score-medium" style="margin-right:6px;">45–64</span> Medium — Monitor closely</div>
+                        <div style="margin-top:4px;"><span class="score-pill score-low" style="margin-right:6px;">0–44</span> Low — Standard review</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Word counter for justification
+const justField = document.getElementById('justificationField');
+const wordCount  = document.getElementById('wordCount');
+justField.addEventListener('input', () => {
+    const words = justField.value.trim().split(/\s+/).filter(w => w).length;
+    wordCount.textContent = words + ' words';
+    wordCount.style.color = words < 6 ? '#dc2626' : '#10b981';
+});
+
+// Live risk indicator
+const riskSelect = document.getElementById('riskSelect');
+const riskIndicator = document.getElementById('riskIndicator');
+const riskStyles = {
+    'CRITICAL': { bg:'#fee2e2', color:'#dc2626', icon:'fa-radiation',          msg:'CRITICAL — Will be flagged for immediate review' },
+    'HIGH':     { bg:'#ffedd5', color:'#ea580c', icon:'fa-fire',               msg:'HIGH — Will be monitored and escalated after 90 days' },
+    'MEDIUM':   { bg:'#fef3c7', color:'#d97706', icon:'fa-triangle-exclamation',msg:'MEDIUM — Standard monitoring applies' },
+    'LOW':      { bg:'#d1fae5', color:'#16a34a', icon:'fa-circle-check',       msg:'LOW — Routine exception, periodic review' },
+};
+riskSelect.addEventListener('change', () => {
+    const s = riskStyles[riskSelect.value];
+    if (s) {
+        riskIndicator.style.display = 'block';
+        riskIndicator.style.background = s.bg;
+        riskIndicator.style.color = s.color;
+        riskIndicator.innerHTML = `<i class="fas ${s.icon} me-2"></i>${s.msg}`;
+    }
+});
+riskSelect.dispatchEvent(new Event('change'));
+</script>
+{% endblock %}

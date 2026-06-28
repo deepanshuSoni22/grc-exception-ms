@@ -189,8 +189,12 @@ def evaluate(df):
 # ─────────────────────────────────────────
  
 if __name__ == "__main__":
-    REGISTRY = r"P:\grc_system\sample_data\exception_registry.csv"
-    LABELS   = r"P:\grc_system\sample_data\exception_labels.csv"
+    import os
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    SAMPLE_DATA_DIR = os.path.join(BASE_DIR, "..", "sample_data")
+
+    REGISTRY = os.path.join(SAMPLE_DATA_DIR, "exception_registry.csv")
+    LABELS   = os.path.join(SAMPLE_DATA_DIR, "exception_labels.csv")
  
     print("🔄 Loading data...")
     df = run_engine(REGISTRY, LABELS)
@@ -202,7 +206,7 @@ if __name__ == "__main__":
     df_result = evaluate(df)
  
     # Save results
-    output_path = r"P:\grc_system\sample_data\scored_exceptions.csv"
+    output_path = os.path.join(SAMPLE_DATA_DIR, "scored_exceptions.csv")
     df_result.to_csv(output_path, index=False)
     print(f"\n💾 Scored data saved → {output_path}")
  

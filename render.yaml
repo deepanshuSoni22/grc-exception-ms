@@ -1,6 +1,9 @@
-﻿services:
+services:
   - type: web
     name: grc-exception-ms
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: python flask_app/app.py
+    startCommand: gunicorn --workers 1 --bind 0.0.0.0:$PORT flask_app.app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.3

@@ -1,17 +1,29 @@
+import sys
+import os
+
+# Ensure local directories are in the python path for imports
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'engine'))
+
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, session
 from database import get_db, init_db
 from datetime import date, datetime, timedelta
 from scheduler import start_scheduler
 from functools import wraps
 import hashlib
-import sys, os
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'engine'))
 from risk_engine import calculate_risk_score, detect_anomaly
 from email_notifications import send_audit_report_email
 
 app = Flask(__name__)
 app.secret_key = "grc_secret_2026"
+
+# Initialize database
+init_db()
+
+# Start scheduler only in the main worker process
+if not app.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+    start_scheduler()
 
 TODAY = date(2026, 4, 15)
 
@@ -684,10 +696,4 @@ def evaluation():
 
 
 if __name__ == "__main__":
-    init_db()
-    # Flask's debug reloader spawns a watcher process AND a worker process.
-    # Without this guard, the scheduler (and its startup job) fires twice.
-    # WERKZEUG_RUN_MAIN is only set in the real worker process.
-    if os.environ.get("WERKZEUG_RUN_MAIN") == "true":
-        start_scheduler()
-    app.run(debug=True, port=5000)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)

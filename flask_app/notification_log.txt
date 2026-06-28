@@ -203,3 +203,5 @@
 2026-06-21T11:49:41.286528 | ADMIN_DAILY_DIGEST                       | SUMMARY      | vinuthast175@gmail.com
 2026-06-21T11:50:08.302299 | ADMIN_DAILY_DIGEST                       | SUMMARY      | vinuthast175@gmail.com
 2026-06-21T12:29:18.919289 | ADMIN_DAILY_DIGEST                       | SUMMARY      | vinuthast175@gmail.com
+2026-06-21T15:22:41.406082 | ADMIN_DAILY_DIGEST                       | SUMMARY      | //recepient email
+2026-06-21T15:46:05.740372 | ADMIN_DAILY_DIGEST                       | SUMMARY      | //recepient email
